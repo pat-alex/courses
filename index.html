@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تسجيل الدخول - منصة التدريب</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="login-screen">
+  <div class="login-card">
+    <div class="eyebrow-mark" aria-hidden="true"></div>
+    <div class="academy-name" id="academyNameLabel">الأكاديمية المهنية للمعلمين</div>
+    <h1 id="courseTitleLabel">تسجيل الدخول للبرنامج التدريبي</h1>
+    <p class="subtitle" id="courseSubtitleLabel">أدخل بياناتك عشان تبدأ، أو تكمل من نفس النقطة اللي وصلت لها آخر مرة.</p>
+
+    <form id="loginForm" novalidate>
+      <div class="field">
+        <label for="nameInput">الاسم</label>
+        <input type="text" id="nameInput" name="name" autocomplete="name" placeholder="اكتب اسمك بالكامل" required>
+      </div>
+      <div class="field">
+        <label for="codeInput">كود المعلم</label>
+        <input type="text" id="codeInput" name="code" inputmode="numeric" placeholder="الكود التعريفي الخاص بيك" required>
+        <div class="hint">الكود ده هو اللي بيحفظ تقدمك ويرجّعك لنفس النقطة اللي وقفت عندها.</div>
+      </div>
+
+      <button type="submit" class="btn-primary" id="submitBtn">ابدأ / متابعة التدريب</button>
+
+      <div class="form-message" id="formMessage"></div>
+    </form>
+  </div>
+</div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/auth.js"></script>
+</body>
+</html>

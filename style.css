@@ -1,0 +1,511 @@
+/* ==========================================================================
+   نظام التصميم - منصة التدريب
+   ========================================================================== */
+
+:root {
+  --color-bg: #F3F5F1;
+  --color-surface: #FFFFFF;
+  --color-surface-alt: #EBEFE9;
+  --color-ink: #182420;
+  --color-ink-muted: #55645C;
+  --color-primary: #1F4B40;
+  --color-primary-dark: #123128;
+  --color-primary-tint: #E4EEE8;
+  --color-accent: #C08A2E;
+  --color-accent-tint: #F5E9D3;
+  --color-border: #D9E0D8;
+  --color-danger: #B3462C;
+  --color-danger-tint: #F6E4DE;
+  --color-success: #3F7A52;
+
+  --font-display: "El Messiri", "Segoe UI", sans-serif;
+  --font-body: "IBM Plex Sans Arabic", "Segoe UI", sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --shadow-card: 0 10px 30px -14px rgba(18, 49, 40, 0.35);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-ink);
+  line-height: 1.7;
+  direction: rtl;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--color-primary-dark);
+  margin: 0 0 0.5em;
+  line-height: 1.35;
+}
+
+a { color: var(--color-primary); }
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* ==========================================================================
+   صفحة تسجيل الدخول
+   ========================================================================== */
+
+.login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(160deg, var(--color-primary-dark) 0%, var(--color-primary) 62%, #2E6456 100%);
+}
+
+/* motif: طبقات متراصّة ترمز لبناء المعرفة وحدة فوق وحدة */
+.login-screen::before,
+.login-screen::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  height: 46%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+.login-screen::before { bottom: -6%; opacity: 0.9; }
+.login-screen::after { bottom: -18%; height: 60%; background: rgba(255, 255, 255, 0.035); }
+
+.login-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 40px 36px 34px;
+}
+
+.login-card .eyebrow-mark {
+  width: 44px; height: 4px;
+  background: var(--color-accent);
+  border-radius: 2px;
+  margin-bottom: 18px;
+}
+
+.login-card .academy-name {
+  font-size: 14px;
+  color: var(--color-ink-muted);
+  margin-bottom: 4px;
+}
+
+.login-card h1 {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.login-card .subtitle {
+  color: var(--color-ink-muted);
+  font-size: 15px;
+  margin-bottom: 28px;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  font-size: 14px;
+  color: var(--color-ink);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.field input {
+  width: 100%;
+  padding: 13px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--color-border);
+  font-family: var(--font-body);
+  font-size: 15px;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  transition: border-color 0.15s ease;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: var(--color-surface);
+}
+
+.field .hint {
+  font-size: 12.5px;
+  color: var(--color-ink-muted);
+  margin-top: 5px;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: 15.5px;
+  font-weight: 600;
+  transition: background 0.15s ease;
+}
+
+.btn-primary:hover { background: var(--color-primary-dark); }
+.btn-primary:disabled { background: #9BAFA8; cursor: not-allowed; }
+
+.form-message {
+  margin-top: 14px;
+  font-size: 14px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  display: none;
+}
+
+.form-message.error {
+  display: block;
+  background: var(--color-danger-tint);
+  color: var(--color-danger);
+}
+
+.form-message.info {
+  display: block;
+  background: var(--color-primary-tint);
+  color: var(--color-primary-dark);
+}
+
+/* ==========================================================================
+   صفحة التدريب (الوحدات / الموضوعات / الاختبار)
+   ========================================================================== */
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  min-height: 100vh;
+}
+
+.main-pane {
+  padding: 36px 44px;
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  gap: 16px;
+}
+
+.topbar .trainee-name {
+  font-size: 14px;
+  color: var(--color-ink-muted);
+}
+
+.save-status {
+  font-size: 12.5px;
+  color: var(--color-ink-muted);
+  margin-inline-start: 10px;
+}
+.save-status.warn { color: var(--color-danger); }
+
+.topbar .logout-link {
+  font-size: 13.5px;
+  color: var(--color-ink-muted);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.topic-kicker {
+  font-size: 13.5px;
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.content-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 32px 34px;
+  border: 1px solid var(--color-border);
+  min-height: 320px;
+}
+
+.content-card .topic-body p { margin: 0 0 1em; }
+.content-card .topic-body ul { padding-inline-start: 22px; }
+
+.media-frame {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #0E1B17;
+  margin-top: 16px;
+}
+.media-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  border: 0;
+}
+
+.file-frame {
+  width: 100%;
+  height: 560px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  margin-top: 16px;
+}
+.file-frame iframe { width: 100%; height: 100%; border: 0; }
+
+.file-fallback-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.nav-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 26px;
+}
+
+.nav-btn {
+  padding: 12px 22px;
+  border-radius: var(--radius-sm);
+  font-size: 14.5px;
+  font-weight: 600;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-ink);
+}
+
+.nav-btn.primary {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* الشريط الجانبي */
+
+.sidebar {
+  background: var(--color-primary-dark);
+  color: #EAF2EE;
+  padding: 30px 26px;
+  overflow-y: auto;
+}
+
+.sidebar .course-title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.sidebar .academy-line {
+  font-size: 12.5px;
+  color: #9FC1B2;
+  margin-bottom: 20px;
+}
+
+.progress-track {
+  height: 8px;
+  background: rgba(255,255,255,0.14);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+.progress-label {
+  font-size: 12.5px;
+  color: #B9D2C6;
+  margin-bottom: 26px;
+}
+
+.unit-block { margin-bottom: 8px; }
+
+.unit-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 4px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.unit-header .unit-name {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.unit-header .chevron {
+  font-size: 12px;
+  color: #9FC1B2;
+  transition: transform 0.15s ease;
+}
+.unit-block.open .chevron { transform: rotate(90deg); }
+
+.topic-list {
+  list-style: none;
+  margin: 6px 0 14px;
+  padding: 0;
+  display: none;
+}
+.unit-block.open .topic-list { display: block; }
+
+.topic-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 6px 8px 2px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 13.5px;
+  color: #CFE4D9;
+}
+
+.topic-list li:hover { background: rgba(255,255,255,0.06); }
+
+.topic-list li.active {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+
+.status-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  border: 1.5px solid #6E9284;
+  flex-shrink: 0;
+}
+.status-dot.done { background: var(--color-accent); border-color: var(--color-accent); }
+.status-dot.current { background: #fff; border-color: #fff; }
+
+.topic-list li.quiz-entry {
+  font-weight: 600;
+  color: #F2D9A6;
+}
+
+/* اختبار الوحدة */
+
+.quiz-progress {
+  font-size: 13.5px;
+  color: var(--color-ink-muted);
+  margin-bottom: 10px;
+}
+
+.quiz-question {
+  margin-bottom: 22px;
+}
+
+.quiz-question .q-text {
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.quiz-options { display: flex; flex-direction: column; gap: 9px; }
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14.5px;
+}
+
+.quiz-option:hover { border-color: var(--color-primary); }
+.quiz-option.selected { border-color: var(--color-primary); background: var(--color-primary-tint); }
+
+.quiz-result {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.quiz-result .score-big {
+  font-family: var(--font-display);
+  font-size: 44px;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+}
+
+.quiz-result.passed .score-big { color: var(--color-success); }
+.quiz-result.failed .score-big { color: var(--color-danger); }
+
+.badge {
+  display: inline-block;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--color-accent-tint);
+  color: #7A5A16;
+}
+
+/* شاشة تحميل / خطأ عامة */
+.loading-state, .error-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--color-ink-muted);
+}
+
+/* استجابة للشاشات الصغيرة */
+@media (max-width: 900px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    order: -1;
+    max-height: 40vh;
+  }
+  .main-pane {
+    padding: 26px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
