@@ -6,7 +6,7 @@
   (شرح كامل للخطوات موجود في README.md)
 */
 
-const APPS_SCRIPT_URL = "PUT_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw9uulD7UmaIzLo_B4jnJIJ6aKVuhPb1Co2BQ6yfPnVT_hHa1_CEBaFXdaAB6GOM6DT/exec";
 
 function isApiConfigured() {
   return typeof APPS_SCRIPT_URL === "string" &&
